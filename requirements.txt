@@ -1,0 +1,8 @@
+aiohttp==3.5.4
+tablib==0.13.0
+fake_useragent==0.1.11
+Flask==1.0.2
+redis==3.2.1
+lxml==4.3.3
+requests==2.21.0
+Flask_SQLAlchemy==2.4.0
