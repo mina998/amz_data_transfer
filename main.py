@@ -1,4 +1,3 @@
-import time
 from multiprocessing import Process
 from random import choice
 from amazon.goods import Goods
@@ -27,10 +26,10 @@ class Main(object):
     #
     def cookies(self):
         while True:
-            time.sleep(1)
+            tools.sleep(1)
             obj = Cookies(zip=90017, log_show=log)
             obj.get()
-            if obj.tongji > 200: time.sleep(200)
+            if obj.tongji > 200: tools.sleep(200)
 
     def goods(self):
         n = 1 #计数
@@ -43,6 +42,7 @@ class Main(object):
             else: is_proxy = True
             # 下次运行时间(秒)
             exe = tools.next_time_stamp() - tools.time_stamp_now(True)
+            exe = tools.time_stamp_now(True) + 600 - tools.time_stamp_now(True)
             if obj.get(is_proxy) == 'ok': tools.sleep(exe)
             n += 1
 
