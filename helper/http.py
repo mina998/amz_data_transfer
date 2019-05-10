@@ -32,8 +32,7 @@ class Http(object):
         try:
             response = self.session.request(method, url=url, data=data, proxies=proxies)
             if response.status_code in [200]: return response.text
-
-        except Exception as e: self.logger.warning(e)
+        except Exception as e: pass  #self.logger.warning(e)
         return ''
 
 

@@ -21,14 +21,14 @@ zips = [
     87190, 87199, 87500, 87509, 87592, 87594
 ]
 cidy = choice(zips)
-
-
+# 不重要日志禁输出
+log = False
 class Main(object):
-
+    #
     def cookies(self):
         while True:
             time.sleep(1)
-            obj = Cookies(zip=94124, log_show=True)
+            obj = Cookies(zip=90017, log_show=log)
             obj.get()
             if obj.tongji > 200: time.sleep(200)
 
@@ -36,7 +36,8 @@ class Main(object):
         n = 1 #计数
         i = [6,9,20,11,15] # 为求随机
         api = 'http://198.35.45.110:1015/get?m=mina998'
-        obj = Goods(log_show=True, proxy_api=api)
+
+        obj = Goods(log_show=log, proxy_api=api)
         while True:
             if n % choice(i) == 0: is_proxy = False
             else: is_proxy = True
