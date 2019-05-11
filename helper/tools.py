@@ -27,7 +27,7 @@ class Tools(object):
         time.sleep(s)
 
     @staticmethod
-    def current_time(str='%Y-%m-%d %H:%M:%S'):
+    def current_time(str='%m-%d %H:%M:%S'):
         """
         获取当日期时间
         :param str: 日期时间格式

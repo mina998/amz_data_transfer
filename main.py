@@ -3,7 +3,6 @@ from random import choice
 from amazon.goods import Goods
 from amazon.cookies import Cookies
 from helper.tools import Tools as tools
-
 from web.app import app
 
 zips = [
@@ -21,7 +20,7 @@ zips = [
 ]
 cidy = choice(zips)
 # 不重要日志禁输出
-log = False
+log = True
 class Main(object):
     #
     def cookies(self):
@@ -35,14 +34,13 @@ class Main(object):
         n = 1 #计数
         i = [6,9,20,11,15] # 为求随机
         api = 'http://198.35.45.110:1015/get?m=mina998'
-
         obj = Goods(log_show=log, proxy_api=api)
         while True:
             if n % choice(i) == 0: is_proxy = False
             else: is_proxy = True
             # 下次运行时间(秒)
             exe = tools.next_time_stamp() - tools.time_stamp_now(True)
-            exe = tools.time_stamp_now(True) + 600 - tools.time_stamp_now(True)
+            exe = 600
             if obj.get(is_proxy) == 'ok': tools.sleep(exe)
             n += 1
 

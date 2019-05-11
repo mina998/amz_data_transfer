@@ -44,7 +44,7 @@ class Goods(Http):
             self.__asin = row[1]
             self.__seller = row[2]
             return True
-        self.logger.warning('[%s]本轮完成.等待中......' % tools.current_time())
+        self.logger.warning('[%s]: 本轮完成.等待中......' % tools.current_time())
         self.__status_up()
         return False
 
@@ -60,7 +60,7 @@ class Goods(Http):
             cookies = json.loads(unquote(token[1]))
             self.session.cookies = self.cookiejar_from_dict(cookies)
             return True
-        self.logger.warning('[%s]:数据库中Cookie为空. 等待300秒'%tools.current_time())
+        self.logger.warning('[%s]: 数据库中Cookie为空,等待300秒...'%tools.current_time())
         tools.sleep(300)
         return False
 
@@ -84,7 +84,7 @@ class Goods(Http):
         if not html: return False
         img, bsr, pre, sto = self.__item_(html)
         if not (pre and sto):
-            self.logger.warning('[%s], 排名:%s, 价格:%s, 库存:%s, %s' % (tools.current_time(), bsr, pre, sto, url))
+            self.logger.warning('[%s]: 排名:%s, 价格:%s, 库存:%s  %s' % (tools.current_time(), bsr, pre, sto, url))
             return False
         # 显示成功日志
         if self.__log_show: self.logger.warning('排名:%s, 价格:%s, 库存:%s' % (bsr, pre, sto))
@@ -124,6 +124,7 @@ class Goods(Http):
         # 请求完成删除代理
         self.session.proxies = {}
         if stock.get('isOK'): return stock.get('cartQuantity')
+        return ''
 
     def __get_proxies_ip(self):
         proxies = {}

@@ -30,7 +30,7 @@ class Cookies(Http):
         tools.sleep(3)
         self.__change_cidy()
         if not self.session.cookies.get('ubid-main'):
-            self.logger.warning('[%s][%s] Token Failed: %s'% (tools.current_time(), self.__zip_code, url))
+            self.logger.warning('[%s]: %s Token Failed %s'% (tools.current_time(), self.__zip_code, url))
             return None
         # 显示成功日志
         if self.__log_show: self.logger.warning('[%s]: Token Success.'%tools.current_time())
