@@ -20,7 +20,7 @@ zips = [
 ]
 cidy = choice(zips)
 # 不重要日志禁输出
-log = True
+log = False
 class Main(object):
     #
     def cookies(self):
