@@ -88,7 +88,7 @@ class Goods(Http):
             return False
         # 显示成功日志
         if self.__log_show: self.logger.warning('排名:%s, 价格:%s, 库存:%s' % (bsr, pre, sto))
-        return dict(bsr=bsr, price=pre, stock=sto, img=img, uptime=tools.current_time(), aid=self.__aid)
+        return dict(bsr=bsr, price=pre, stock=sto, img=img, uptime=tools.current_time('%Y-%m-%d %H:%M:%S'), aid=self.__aid)
 
 
     def __item_(self, html):
