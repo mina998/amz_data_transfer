@@ -1,0 +1,15 @@
+# 操作步骤
+1. cd ~
+2. git clone https://github.com/mina998/amz_data_transfer.git
+3. cd amz_data_transfer
+4. pip3 install -r ./requirements.txt
+5. apt install redis
+6. python3 proxy_pool/run.py >/dev/null 2>&1 &
+7. nohup python3 main.py >> ./web/assets/trace.txt 2>&1 &
+
+# data.bak.db 为空数据库
+
+# 代理池地址
+http://ip:1015/get?m=mina998
+# 数据控制台
+http://ip:5000
