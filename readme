@@ -5,7 +5,7 @@
 4. pip3 install -r ./requirements.txt
 5. apt install redis
 6. python3 proxy_pool/run.py >/dev/null 2>&1 &
-7. nohup python3 main.py >> ./web/assets/trace.txt 2>&1 &
+7. nohup python3 main.py >> ./web/assets/logs/trace.txt 2>&1 &
 
 # data.bak.db 为空数据库
 
