@@ -74,6 +74,7 @@ class Goods(Http):
         sqlite.execute('update listing set status=0')
         sqlite.commit()
 
+
     def __info_get(self):
         # 组装url
         query = '/?m=%s' % self.__seller if self.__seller else ''
@@ -86,7 +87,8 @@ class Goods(Http):
             self.logger.warning('[%s]: 排名:%s, 价格:%s, 库存:%s  %s' % (tools.current_time(), bsr, pre, sto, url))
             return False
         # 显示成功日志
-        if self.__log_show: self.logger.warning('排名:%s, 价格:%s, 库存:%s' % (bsr, pre, sto))
+        proxy =  '没有使用代理' if not self.session.proxies else self.session.proxies['http']
+        if self.__log_show: self.logger.warning('[%s]: 排名:%s, 价格:%s, 库存:%s' % (proxy, bsr, pre, sto))
         return dict(bsr=bsr, price=pre, stock=sto, img=img, uptime=tools.current_time('%Y-%m-%d %H:%M:%S'), aid=self.__aid)
 
 
@@ -129,7 +131,6 @@ class Goods(Http):
             tools.sleep(2)
             ip = self.request(url=self.__proxy_api)
             if ip:
-                if self.__log_show: self.logger.warning('Proxies: '+ip)
                 self.session.proxies = {'http':ip, 'https':ip}
             else:
                 self.logger.warning('[%s]: Get Porxies Failed!' % tools.current_time())
