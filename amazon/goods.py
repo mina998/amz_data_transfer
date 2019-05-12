@@ -76,6 +76,7 @@ class Goods(Http):
     def __info_get(self):
         # 设置代理
         if self.__is_proxy: self.session.proxies = self.__get_proxies_ip()
+        else: self.session.proxies = {}
         # 组装url
         query = '/?m=%s' % self.__seller if self.__seller else ''
         url = 'https://www.amazon.com/dp/%s%s' % (self.__asin, query)
@@ -121,8 +122,6 @@ class Goods(Http):
         }
         stock = self.request(method='POST', url=url, data=data)
         stock = json.loads(stock.strip())
-        # 请求完成删除代理
-        self.session.proxies = {}
         if stock.get('isOK'): return stock.get('cartQuantity')
         return ''
 
