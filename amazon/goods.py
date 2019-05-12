@@ -126,13 +126,18 @@ class Goods(Http):
     def __proxies_set(self, is_set_proxy=False):
         """设置代理"""
         if self.__proxy_api and is_set_proxy:
+            tools.sleep(2)
             ip = self.request(url=self.__proxy_api)
-            if ip: self.session.proxies = {'http':ip, 'https':ip}
-            else: self.logger.warning('[%s]: Get Porxies Failed!' % tools.current_time())
+            if ip:
+                if self.__log_show: self.logger.warning('Proxies: '+ip)
+                self.session.proxies = {'http':ip, 'https':ip}
+            else:
+                self.logger.warning('[%s]: Get Porxies Failed!' % tools.current_time())
+                self.session.proxies={}
         else: self.session.proxies = {}
 
 
 
 if __name__ == '__main__':
-    goods = Goods()
+    goods = Goods(log_show=True)
     goods.get()

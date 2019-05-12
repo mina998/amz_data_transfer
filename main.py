@@ -22,7 +22,7 @@ zips = [90017]
 
 # 不重要日志禁输出
 # 不显示成功日志
-log = False
+log = True
 
 class Main(object):
     #
@@ -31,7 +31,7 @@ class Main(object):
             tools.sleep(1)
             obj = Cookies(zip=choice(zips), log_show=log)
             obj.get()
-            if obj.tongji > 200: tools.sleep(200)
+            if obj.tongji > 300: tools.sleep(600)
 
     def goods(self):
         n = 1 #计数
@@ -42,7 +42,7 @@ class Main(object):
             if n % choice(i) == 0: is_proxy = False
             else: is_proxy = True
             # 下次运行时间(秒)
-            if log: exe = 300
+            if log: exe = 600
             else: exe = tools.next_time_stamp() - tools.time_stamp_now(True)
             if obj.get(is_proxy) == 'ok': tools.sleep(exe)
             n += 1
