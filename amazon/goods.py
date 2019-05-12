@@ -14,15 +14,16 @@ class Goods(Http):
         self.__proxy_api = proxy_api
 
     def get(self, is_proxy=False):
-        self.__is_proxy = is_proxy
         # 1. 获取Asin
         if not self.__asin_get(): return 'ok'
         # 2. 更新Cookie
         if not self.__cookies_up(): return False
-        # 3. 获取页面数据
+        # 3. 设置代理
+        self.__proxies_set(is_proxy)
+        # 4. 获取页面数据
         info = self.__info_get()
         if not info: return False
-        # 4. 更新数据库
+        # 5. 更新数据库
         insert = "insert into marks (bsr,price,stock,asin_id,uptime) values ('{bsr}','{price}','{stock}','{aid}','{uptime}')".format(**info)
         update = 'update listing set status=1,img="{img}" where asin="{asin}"'.format(img=info['img'], asin=self.__asin)
         delete = 'delete from cookies where id = %s' % self.__token_id
@@ -74,9 +75,6 @@ class Goods(Http):
         sqlite.commit()
 
     def __info_get(self):
-        # 设置代理
-        if self.__is_proxy: self.session.proxies = self.__get_proxies_ip()
-        else: self.session.proxies = {}
         # 组装url
         query = '/?m=%s' % self.__seller if self.__seller else ''
         url = 'https://www.amazon.com/dp/%s%s' % (self.__asin, query)
@@ -125,13 +123,14 @@ class Goods(Http):
         if stock.get('isOK'): return stock.get('cartQuantity')
         return ''
 
-    def __get_proxies_ip(self):
-        proxies = {}
-        if self.__proxy_api is None: proxies
-        ip = self.request(url=self.__proxy_api)
-        if ip: proxies = {'http':ip, 'https':ip}
-        else: self.logger.warning('[%s]: Get Porxies Failed!' % tools.current_time())
-        return proxies
+    def __proxies_set(self, is_set_proxy=False):
+        """设置代理"""
+        if self.__proxy_api and is_set_proxy:
+            ip = self.request(url=self.__proxy_api)
+            if ip: self.session.proxies = {'http':ip, 'https':ip}
+            else: self.logger.warning('[%s]: Get Porxies Failed!' % tools.current_time())
+        else: self.session.proxies = {}
+
 
 
 if __name__ == '__main__':
