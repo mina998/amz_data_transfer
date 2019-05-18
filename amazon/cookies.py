@@ -6,7 +6,7 @@ from helper.tools import Tools as tools
 from helper.http import Http
 
 class Cookies(Http):
-    def __init__(self, zip=10001, log_show=False):
+    def __init__(self, count=666, zip=10001, log_show=False):
         """
         zip 城市邮编
         :param zip:
@@ -14,6 +14,7 @@ class Cookies(Http):
         super().__init__()
         self.__zip_code = zip
         self.__log_show = log_show
+        self.__count = count
 
     def __token_get(self):
         # 获取首页cookies
@@ -58,7 +59,7 @@ class Cookies(Http):
     def get(self):
         # 统计Cookie获取数量
         tongji = sqlite.execute('select count(*) from cookies').fetchone()
-        self.tongji = tongji[0] if tongji else 0
+        if tongji and tongji[0] > self.__count: return False
         # 获取Cooklie
         cookies = self.__token_get()
         if cookies is None: return False

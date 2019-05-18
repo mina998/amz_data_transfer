@@ -28,10 +28,10 @@ class Main(object):
     #
     def cookies(self):
         while True:
-            tools.sleep(1)
-            obj = Cookies(zip=choice(zips), log_show=log)
+            tools.sleep(5)
+            obj = Cookies(czip=choice(zips), log_show=log)
             obj.get()
-            if obj.tongji > 300: tools.sleep(600)
+
 
     def goods(self):
         n = 1 #计数
