@@ -6,14 +6,14 @@ from helper.tools import Tools as tools
 from helper.http import Http
 
 class Cookies(Http):
-    def __init__(self, count=666, zip=10001, log_show=False):
+    def __init__(self, count=666, zip=10001, debug=False):
         """
         zip 城市邮编
         :param zip:
         """
         super().__init__()
         self.__zip_code = zip
-        self.__log_show = log_show
+        self.__debug = debug
         self.__count = count
 
     def __token_get(self):
@@ -34,7 +34,7 @@ class Cookies(Http):
             self.logger.warning('[%s]: %s Token Failed %s'% (tools.current_time(), self.__zip_code, url))
             return None
         # 显示成功日志
-        if self.__log_show: self.logger.warning('[%s]: Token Success.'%tools.current_time())
+        if self.__debug: self.logger.warning('[%s]: Token Success.'%tools.current_time())
 
         cookies = self.session.cookies
         cookies = self.dict_from_cookiejar(cookies)

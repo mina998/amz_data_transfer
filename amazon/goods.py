@@ -7,10 +7,10 @@ from amazon.db import sqlite
 
 class Goods(Http):
 
-    def __init__(self, log_show=False, proxy_api=None):
+    def __init__(self, debug=False, proxy_api=None):
         super().__init__()
         self.__exe_next_time = 0
-        self.__log_show = log_show
+        self.__debug = debug
         self.__proxy_api = proxy_api
 
     def get(self, is_proxy=False):
@@ -61,8 +61,8 @@ class Goods(Http):
             cookies = json.loads(unquote(token[1]))
             self.session.cookies = self.cookiejar_from_dict(cookies)
             return True
-        self.logger.warning('[%s]: 数据库中Cookie为空,等待300秒...'%tools.current_time())
-        tools.sleep(300)
+        self.logger.warning('[%s]: 数据库中Cookie为空,等待600秒...'%tools.current_time())
+        tools.sleep(600)
         return False
 
 
@@ -88,7 +88,7 @@ class Goods(Http):
             return False
         # 显示成功日志
         proxy =  '没有使用代理' if not self.session.proxies else self.session.proxies['http']
-        if self.__log_show: self.logger.warning('[%s]: 排名:%s, 价格:%s, 库存:%s' % (proxy, bsr, pre, sto))
+        if self.__debug: self.logger.warning('[%s]: 排名:%s, 价格:%s, 库存:%s' % (proxy, bsr, pre, sto))
         return dict(bsr=bsr, price=pre, stock=sto, img=img, uptime=tools.current_time('%Y-%m-%d %H:%M:%S'), aid=self.__aid)
 
 
