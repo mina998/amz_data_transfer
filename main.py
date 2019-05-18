@@ -29,7 +29,7 @@ class Main(object):
     def cookies(self):
         while True:
             tools.sleep(5)
-            obj = Cookies(czip=choice(zips), log_show=log)
+            obj = Cookies(zip=choice(zips), log_show=log)
             obj.get()
 
 
